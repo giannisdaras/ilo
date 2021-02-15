@@ -1,0 +1,110 @@
+# configures the working direction of hydra.
+# If using relative paths, the working directory should be the root folder of ILO.
+hydra:
+  run:
+    dir: '.'
+
+# only StyleGAN is supported for now.
+model_type: 'stylegan'
+
+stylegan:
+  seed: 42
+  device: cuda
+
+  # The pre-trained StyleGAN checkpoint
+  ckpt: stylegan2-ffhq-config-f.pt
+
+  ## weights of different losses
+  geocross: 0.01
+  mse: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  pe: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  dead_zone_linear: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  # tolerance of dead zone linear function
+  dead_zone_linear_alpha: 0.1
+  # Additional loss term to a reference image. \
+  # Leave it to 0, unless you know what you are doing.
+  reference_loss: 0.0
+
+  # hack for making lpips work
+  lpips_method: 'fill'
+  # classifier used in LPIPS loss
+  cls_name: vgg16
+
+
+  ## Task specific
+
+  # circulant matrices
+  fast_compress: false
+  observed_percentage: 80
+
+  # can be decreased for super-resolution
+  image_size:
+    - 1024
+    - 1024
+
+  # controls whether we want to match black pixels. Leave to true for inpainting.
+  mask_black_pixels: true
+
+  ## Optimization
+
+  # how many steps to run per layer
+  steps: [50, 50, 25, 25]
+  # whether to project latents to unit ball
+  project: true
+  # learning rate per layer
+  lr: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+  # whether to schedule per layer or in total
+  lr_same_pace: false
+  # Which layer to start optimizing from. Use 0, unless there are saved noises.
+  # If you want to skip optimization in some layers, just use 0 to the corresponding indices of steps.
+  start_layer: 0
+  end_layer: 8
+  # Whether to restore opt. variables from previous run.
+  restore: false
+  # paths to previous opt. variables
+  saved_noises:
+    - files/noises.pt
+    - files/latent.pt
+    - files/gen_outs.pt
+  # projections
+  do_project_gen_out: false
+  do_project_noises: false
+  do_project_latent: false
+  max_radius_gen_out: [1000, 1000, 6000]
+  max_radius_noises: [1000, 1000, 6000]
+  max_radius_latent: [100, 1000, 6000]
+
+  # specific to video. Leave it as is, unless you know what you are doing.
+  is_video: false
+  max_frame_radius_gen_out: [200]
+  max_frame_radius_noises: [5]
+  max_frame_radius_latent: [200]
+  video_freq: 30
+  per_frame_steps: '100'
+
+  ## files
+  # If is_sequence=True, then the input_files and the output_files should be directories.
+  is_sequence: false
+  input_files:
+    - files/original/turing_masked.png
+  output_files:
+    - files/inpainting/turing.png
+
+  ## specific to datasets
+  dataset_type: CelebaHQ
+  # if is_dataset=true, then we are sampling from a dataset instead of having fixed files.
+  is_dataset: false
+  # how many samples to get from dataset. Is activated only when is_dataset=true
+  num_dataset: 1
+  # extension of dataset files (for glob)
+  files_ext: '.png'
+
+  # logging
+  # if save_latent=True, then the optimization variables will be saved and can be used in later run.
+  save_latent: false
+  # if true, intermediate frames from optimization are saved.
+  save_gif: false
+  # determines how often we save intermediate frames. Activated only if save_gif=True.
+  save_every: 50
+  # determined whether we our final generated image is the one with the lowest MSE to a reference image.
+  save_on_ref: false

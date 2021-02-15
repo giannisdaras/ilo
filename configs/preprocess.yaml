@@ -1,0 +1,25 @@
+hydra:
+  run:
+    dir: '.'
+preprocessing: [interactive_mask]
+image_size: [1024, 1024]
+# mask specific part of the image
+bounding_box:
+  horizontal:
+    - 200
+    - 400
+  vertical:
+    - 200
+    - 400
+blend: 0.5
+observed_percentage: [20]
+per_input: 1
+num_rois: 1
+# videos
+video_freq: 30
+sampling_freq: 1
+input_files: [files/original/alex2.png]
+output_dir: files/original/
+dataset_type: CelebaHQ
+is_dataset: false
+num_dataset: 10
