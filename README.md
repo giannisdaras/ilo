@@ -2,8 +2,14 @@
 ![](https://img.shields.io/badge/pytorch-green) ![](https://img.shields.io/badge/ilo-ilo-green)
 
 This repository hosts the official PyTorch implementation of the paper: "Intermediate Layer Optimization for Inverse Problems using Deep Generative Models".
+
+
 Paper: https://arxiv.org/abs/2102.07364
+
+
 Authored by: Giannis Daras, Joseph Dean (equal contribution), Ajil Jalal, Alexandros G. Dimakis
+
+
 Colab demo: 
 
 [![Colab](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://rb.gy/tj1ypl)
