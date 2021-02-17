@@ -86,9 +86,9 @@ stylegan:
   # If is_sequence=True, then the input_files and the output_files should be directories.
   is_sequence: false
   input_files:
-    - files/original/turing_masked.png
+    - files/original/john_cleese_no_nose.png
   output_files:
-    - files/inpainting/turing.png
+    - files/inpainting/john_cleese.png
 
   ## specific to datasets
   dataset_type: CelebaHQ
