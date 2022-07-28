@@ -3,6 +3,7 @@
 
 This repository hosts the official PyTorch implementation of the paper: "Intermediate Layer Optimization for Inverse Problems using Deep Generative Models".
 
+**Important Note**: The results of this paper have been improved by our ICML 22 work: [Score-Guided Intermediate Layer Optimization: Fast Langevin Mixing for Inverse Problems](https://arxiv.org/abs/2206.09104)([code](https://github.com/giannisdaras/sgilo)). This new work achieves greater results, especially in the extremely sparse measurements regime.
 
 Paper: https://arxiv.org/abs/2102.07364
 
